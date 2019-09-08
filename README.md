@@ -7,7 +7,7 @@ The samples.txt file is an example, you can use it to test the algorithm by typi
 
 # The ratio and tolerance values
 ## Ratio
-Ratio is a value by which the derivatives of quadratic errors will be divided to decrement the angular and linear coefficients in gradient descent iterations. You must choose a value greater than or equal to 100 for the ratio. The higher this ratio is, the less likely an error is to occur during the iteration, and the longer the process.
+Ratio is a value by which the derivatives of mean quadratic errors will be divided to decrement the angular and linear coefficients in gradient descent iterations. You must choose a value greater than or equal to 100 for the ratio. The higher this ratio is, the less likely an error is to occur during the iteration, and the longer the process.
 
 ## Tolerance
 Tolerance is an error limit accepted by the gradient descent algorithm to find inflection points. As it is usually impossible to iteratively find the inflection point of the MSE (as a function of the angular and linear coefficients of the linear function), it is necessary to delimit a set of points close to the inflection point that, when reached, the gradient descent is taken as complete.
