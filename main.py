@@ -1,3 +1,10 @@
+# Author: Filipe Chagas Ferraz
+# Description: Linear Regression program
+# Programming Language: Python 2
+# Email: filipe.ferraz0@gmail.com
+# Github account: github.com/FilipeChagasDev
+# License: MIT License 
+
 import numpy as np 
 import matplotlib.pyplot as plt
 import math
@@ -5,11 +12,13 @@ import random as rand
 import os.path
 from os import path
 
+# function that loads the text file and turns it into a list of tuples
 def load_samples (path):
     samples_file = open(path, "r")
     samples_text = "[" + samples_file.read() + "]"
     return eval(samples_text)
 
+# square error derivative in function of angular coefficient
 def SE_angular_coeff_diff (angular_coeff,linear_coeff,sample_x,sample_y):
     # SE = ( a * x + b - y)^2
     # dSE/da = 2*x*(a*x + b - y)
@@ -21,6 +30,7 @@ def SE_angular_coeff_diff (angular_coeff,linear_coeff,sample_x,sample_y):
 
     return 2 * sample_x * ( angular_coeff * sample_x + linear_coeff - sample_y ) 
 
+# square error derivative in function of linear coefficient
 def SE_linear_coeff_diff (angular_coeff,linear_coeff,sample_x,sample_y):
     # SE = ( a * x + b - y)^2
     # dSE/db = 2*(a*x + b - y)
@@ -32,6 +42,7 @@ def SE_linear_coeff_diff (angular_coeff,linear_coeff,sample_x,sample_y):
 
     return 2 * ( angular_coeff * sample_x + linear_coeff - sample_y ) 
 
+# mean square error derivative in function of angular coefficient
 def MSE_angular_coef_diff (angular_coeff, linear_coeff, samples):
     # MSE = 1/N * SE_1 + SE_2 + ... + SE_N
     # dMSE/da = 1/N * dSE_1/da * dSE_2/da + ... + dSE_N/da
@@ -43,6 +54,7 @@ def MSE_angular_coef_diff (angular_coeff, linear_coeff, samples):
 
     return summation/samples.shape[0] 
 
+# mean square error derivative in function of linear coefficient
 def MSE_linear_coef_diff (angular_coeff, linear_coeff, samples):
     # MSE = 1/N * SE_1 + SE_2 + ... + SE_N
     # dMSE/db = 1/N * dSE_1/db * dSE_2/db + ... + dSE_N/db
@@ -54,9 +66,11 @@ def MSE_linear_coef_diff (angular_coeff, linear_coeff, samples):
     
     return summation/samples.shape[0] 
 
+# function that returns true if v1 is close to v2 (within tolerance range)
 def approximately (val1, val2, tolerance):
     return (val1 > val2 - tolerance ) and (val1 < val2 + tolerance)
 
+# Gradient descent function. It returns the (angular_coeff, linear_coeff) tuple
 def gradient_descent (samples, ratio, tolerance):
     current_angular_coeff = rand.random()*10
     current_linear_coeff = rand.random()*10
@@ -91,7 +105,7 @@ def main():
 
     ratio = float("nan")
     while True:
-        ratio = float(raw_input("enter the learning ratio (recommended 100): "))
+        ratio = float(raw_input("enter the gradient descent ratio (recommended 100): "))
         if ratio < 100:
             print("The ratio value cannot be less than 100. Try again...")
         else:
@@ -100,7 +114,7 @@ def main():
     
     tolerance = float("nan")
     while True:
-        tolerance = float(raw_input("enter the tolerance (recommended 0.01): "))
+        tolerance = float(raw_input("enter the gradient descent tolerance (recommended 0.01): "))
         if tolerance >= 1:
             print("The tolerance most be less than 1. Try again...")
         else:
